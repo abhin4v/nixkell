@@ -21,6 +21,7 @@ in
           enableRelocatedStaticLibs = true;
           enableShared = false;
           enableDwarf = false;
+          enableProfiledLibs = false;
           enableDocs = false;
         };
         buildHaskellPackages = prevHPackages.buildHaskellPackages.override (old: {
