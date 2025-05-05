@@ -7,7 +7,7 @@
 ++ [
   (final: prev: {
     nixkell = import ./packages.nix {
-      pkgs = if static then prev.pkgsMusl else prev;
+      pkgs = if static then final.pkgsMusl else final;
       inherit compiler static;
     };
   })

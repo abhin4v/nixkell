@@ -40,6 +40,7 @@ let
           "--ghc-option=-n2m" # allocation area chunksize
           "--ghc-option=-RTS"
         ])
+        (hlib.overrideCabal (old: { enableParallelBuilding = true; }))
       ] ++ lib.optional (!(usingOr "optimise" true))
         hlib.disableOptimization
       ++ lib.optional (usingOr "profiling" false)
@@ -139,6 +140,14 @@ in
   # expose the static dependencies and build tools so that we can create Nix GC root for them
   staticDeps = pkgs.symlinkJoin {
     name = "static-deps";
-    paths = [ ghc pkgs.cabal2nix-unwrapped gmp6 libffi ncurses zlib ];
+    paths = [
+      ghc
+      ourHaskell.buildHaskellPackages.jailbreak-cabal
+      pkgs.cabal2nix-unwrapped
+      gmp6
+      libffi
+      ncurses
+      zlib
+    ];
   };
 } else { })
